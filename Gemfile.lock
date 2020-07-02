@@ -1,8 +1,17 @@
 PATH
+  remote: ../ruby-sdk
+  specs:
+    dapr-client (0.2.0)
+      faraday
+      google-protobuf
+      grpc
+
+PATH
   remote: .
   specs:
     dapr-rails (0.1.0)
       concurrent-ruby
+      dapr-client (>= 0.2.0)
       rails (~> 6.0.3, >= 6.0.3.2)
 
 GEM
@@ -67,8 +76,16 @@ GEM
     concurrent-ruby (1.1.6)
     crass (1.0.6)
     erubi (1.9.0)
+    faraday (1.0.1)
+      multipart-post (>= 1.2, < 3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    google-protobuf (3.12.2-universal-darwin)
+    googleapis-common-protos-types (1.0.5)
+      google-protobuf (~> 3.11)
+    grpc (1.28.0-universal-darwin)
+      google-protobuf (~> 3.11)
+      googleapis-common-protos-types (~> 1.0)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     loofah (2.6.0)
@@ -83,6 +100,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.1)
+    multipart-post (2.1.1)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
@@ -136,6 +154,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dapr-client!
   dapr-rails!
 
 BUNDLED WITH

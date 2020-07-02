@@ -2,11 +2,12 @@ require "dapr/rails/engine"
 
 module Dapr
   module Rails
-    mattr_accessor :app_id, instance_writer: false
-    mattr_accessor :actor_idle_timeout, default: "300s", instance_writer: false
-    mattr_accessor :actor_scan_interval, default: "60s", instance_writer: false
-    mattr_accessor :drain_ongoing_call_timeout, default: "30s", instance_writer: false
-    mattr_accessor :drain_rebalanced_actors, default: true, instance_writer: false
+    mattr_accessor :dapr_url, default: "http://localhost:3500"
+    mattr_accessor :app_id
+    mattr_accessor :actor_idle_timeout, default: "10s" # TODO
+    mattr_accessor :actor_scan_interval, default: "10s"
+    mattr_accessor :drain_ongoing_call_timeout, default: "30s"
+    mattr_accessor :drain_rebalanced_actors, default: true
 
     mattr_reader :actor_registry
     mattr_reader :topics
