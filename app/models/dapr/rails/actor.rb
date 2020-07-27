@@ -82,7 +82,7 @@ module Dapr
       def message_me(method, data = nil)
         Thread.new do
           ::Rails.logger.info("Sending message #{method} to #{actor_type} #{actor_id}")
-          Faraday.post("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/method/#{method}",
+          Faraday.new.post("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/method/#{method}",
                        data.to_json, "Content-Type" => "application/json")
         rescue StandardError => ex
           ::Rails.logger.error(ex.inspect)
@@ -98,7 +98,7 @@ module Dapr
             period: "0h0m#{period}s0ms"
           }
           ::Rails.logger.info("Setting reminder #{reminder} for #{actor_type} #{actor_id}")
-          Faraday.post("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/reminders/#{reminder}",
+          Faraday.new.post("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/reminders/#{reminder}",
                        data.to_json, "Content-Type" => "application/json")
         rescue StandardError => ex
           ::Rails.logger.error(ex.inspect)
@@ -109,7 +109,7 @@ module Dapr
       def remove_reminder(reminder)
         Thread.new do
           ::Rails.logger.info("Deleting reminder #{reminder} for #{actor_type} #{actor_id}")
-          Faraday.delete("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/reminders/#{reminder}")
+          Faraday.new.delete("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/reminders/#{reminder}")
         rescue StandardError => ex
           ::Rails.logger.error(ex.inspect)
           raise
@@ -123,7 +123,7 @@ module Dapr
             period: "0h0m#{period}s0ms"
           }
           ::Rails.logger.info("Setting timer #{timer} for #{actor_type} #{actor_id}")
-          Faraday.post("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/timers/#{timer}",
+          Faraday.new.post("#{Dapr::Rails.dapr_url}/v1.0/actors/#{actor_type}/#{actor_id}/timers/#{timer}",
                        data.to_json, "Content-Type" => "application/json")
         rescue StandardError => ex
           ::Rails.logger.error(ex.inspect)
@@ -163,7 +163,7 @@ module Dapr
           Dapr::Rails.app_id,
           actor_type,
           actor_id
-        ].join("-")
+        ].join("||")
       end
 
       def deserialize(data)
